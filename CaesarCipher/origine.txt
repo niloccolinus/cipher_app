@@ -1,0 +1,5 @@
+Important: We are preparing an attack of Charly's computer server by a Wardriving attack this week.
+We will attempt a passive attack of their network and search the access point. We will listen to the radio traffic with a scanner and try to decrypt the WPA key.
+Here is my position:
+latitude forty one degrees seven minutes forty one point four two seconds North, longitude one degree fifteen minutes twenty point six seven seconds East.
+Unlimited budget required.
