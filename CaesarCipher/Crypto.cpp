@@ -17,8 +17,7 @@ string Crypto::LireMessage(string fileName) {
 	else {
 		string line;
 
-		while (fichier_in) {
-			std::getline(fichier_in, line);
+		while (std::getline(fichier_in, line) {
 			message.append(line + "\n"); // on ajoute chaque ligne au message + un saut de ligne
 		}
 	}
@@ -33,29 +32,29 @@ void Crypto::Chiffrer(int key) {
 
 	for (int i = 0; i < origine.length(); i++)
 	{
-		// vérifier si la lettre est une lettre alphabétique...
+		// vÃ©rifier si la lettre est une lettre alphabÃ©tique...
 		if (isalpha(origine[i]))
 		{
 			c = origine[i];
 
 			if (isupper(c)) {
-				// décaler la lettre :
-				// on utilise le code ASCII du caractère pour effectuer des opérations arithmétiques
-				// c - 'A' est l'index dans l'alphabet de la lettre à l'index i (ex : 'I' - 'A' = 73 - 65 = 8)
-				// on ajoute le décalage key
+				// dÃ©caler la lettre :
+				// on utilise le code ASCII du caractÃ¨re pour effectuer des opÃ©rations arithmÃ©tiques
+				// c - 'A' est l'index dans l'alphabet de la lettre Ã  l'index i (ex : 'I' - 'A' = 73 - 65 = 8)
+				// on ajoute le dÃ©calage key
 				// le modulo 26 permet d'assurer que l'index sera un index valide de l'alphabet
-				// ex pour décaler Z de 3 : (25 + 3) % 26 = 2 ce qui correspond à C
-				// on rajoute 'A' pour obtenir le code ASCII de la lettre chiffrée
+				// ex pour dÃ©caler Z de 3 : (25 + 3) % 26 = 2 ce qui correspond Ã  C
+				// on rajoute 'A' pour obtenir le code ASCII de la lettre chiffrÃ©e
 				c = ((c - 'A') + key) % 26 + 'A';
 			}
 			else {
-				// même chose pour lettres minuscules
+				// mÃªme chose pour lettres minuscules
 				c = ((c - 'a') + key) % 26 + 'a';
 			}
 			output += c;
 
 		}
-		// ...sinon ajouter la lettre telle quelle au message chiffré
+		// ...sinon ajouter la lettre telle quelle au message chiffrÃ©
 		else
 		{
 			output += origine[i];
@@ -87,9 +86,9 @@ void Crypto::Dechiffrer(int key) {
 			c = message[i];
 
 			if (isupper(c)) {
-				// algorithme semblable à celui de Chiffrer mais on enlève key au lieu de l'ajouter
+				// algorithme semblable Ã  celui de Chiffrer mais on enlÃ¨ve key au lieu de l'ajouter
 				int index = ((c - 'A') - key) % 26;
-				if (index < 0) index += 26; // ajustement pour les index négatifs
+				if (index < 0) index += 26; // ajustement pour les index nÃ©gatifs
 				c = index + 'A';
 			}
 			else {
@@ -106,6 +105,6 @@ void Crypto::Dechiffrer(int key) {
 		}
 	}
 
-	// imprimer le message décodé
+	// imprimer le message dÃ©codÃ©
 	cout << decodedMsg << endl;
 }
