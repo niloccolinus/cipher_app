@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Crypto.h"
-
+#include <windows.h>
 
 Crypto::Crypto() {
 	c = 'a'; 
@@ -17,7 +17,7 @@ string Crypto::LireMessage(string fileName) {
 	else {
 		string line;
 
-		while (std::getline(fichier_in, line) {
+		while (std::getline(fichier_in, line)) {
 			message.append(line + "\n"); // on ajoute chaque ligne au message + un saut de ligne
 		}
 	}
@@ -25,10 +25,26 @@ string Crypto::LireMessage(string fileName) {
 	return message;
 }
 
+void Crypto::EffacerMessage(string fileName) {
+	string output = "";
+	fichier_out.open(fileName);
+	if (fichier_out.fail()) {
+		cout << "Erreur a l'ouverture du fichier..." << endl;
+	}
+	else {
+		fichier_out << output;
+	}
+	fichier_out.close();
+}
+
 void Crypto::Chiffrer(int key) {
 	string origine = LireMessage("origine.txt");
 	string output = "";
 
+	if (origine.length() == 0) {
+		cout << "Le message d'origine est vide !" << endl;
+		return;
+	}
 
 	for (int i = 0; i < origine.length(); i++)
 	{
@@ -69,14 +85,26 @@ void Crypto::Chiffrer(int key) {
 		}
 		else {
 			fichier_out << output;
+			// succès
+			cout << "Le message a été chiffré avec succès." << endl;
+			cout << "Vous trouverez le message dans le fichier 'message.txt'." << endl;
 		}
 		fichier_out.close();
 	}
+
+
 }
 
 void Crypto::Dechiffrer(int key) {
 	string message = LireMessage("message.txt");
 	string decodedMsg;
+
+	if (message.length() == 0) {
+		cout << "Le message d'origine est vide !" << endl;
+		return;
+	}
+	else {
+
 
 	for (int i = 0; i < message.length(); i++)
 	{
@@ -105,6 +133,123 @@ void Crypto::Dechiffrer(int key) {
 		}
 	}
 
+	cout << "Le message a été déchiffré avec succès." << endl;
+	cout << "Voici le message déchiffré :" << endl;
 	// imprimer le message décodé
 	cout << decodedMsg << endl;
+}
+
+}
+
+bool Crypto::Init() {
+	Crypto crypto;
+
+	char choix; // choix de l'utilisateur, soit chiffrer, soit déchiffrer, soit quitter
+	int key = 0; // clé rentrée par l'utilisateur
+	int essais = 0; // initialisation à 0 des essais effectués
+	int essaisMax = 1; // nombre d'essais maximum pour déchiffrer
+
+	system("cls");
+	cout << "Faites votre choix : " << endl;
+	cout << "Pour chiffrer un message : tapez (c) " << endl;
+	cout << "Pour déchiffrer un message : tapez (d) " << endl;
+	cout << "Pour quitter le programme : tapez (q ou Q) " << endl;
+	cout << "Saisissez votre choix : ";
+
+	cin >> choix;
+	cin.clear();
+
+
+	switch (choix)
+	{
+	case 'c': // Chiffrement
+
+		system("cls");
+		cout << "Vous avez choisi de chiffrer un message." << endl;
+		cout << "Choisissez une clé entre 1 et 25 qui permettra de chiffrer et déchiffrer le message." << endl;
+		getchar();
+
+		/* Début saisie clé */
+		// L'utilisateur saisit la clé qui va permettre de chiffrer le message.
+
+		do {
+			cout << "Saisissez la clé :" << endl;
+			cin >> key;
+
+			// vérifier que la clé est un chiffre entre 1 et 25
+			if (!isalpha(key) && key >= 1 && key <= 25) {
+				cin.clear();
+				system("cls");
+				cout << "Clé saisie avec succès. Ne l'oubliez pas." << endl;
+				getchar();
+			}
+			else {
+				cin.clear();
+				system("cls");
+				key = 0;
+				cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
+				cout << "Veuillez recommencer." << endl;
+				getchar();
+			}
+		} while (key == 0);
+
+		/* Fin saisie clé */
+
+		crypto.Chiffrer(key); // lance la fonction chiffrer
+		getchar();
+		return false;
+		break;
+
+	case 'd': // Dechiffrement
+
+		system("cls");
+		cout << "Vous avez choisi de déchiffrer un message." << endl;
+		getchar();
+
+		/* Saisir clé */
+
+		do {
+			cout << "Veuillez saisir la clé secrète :" << endl;
+			cin >> key;
+
+			// vérifier que la clé est un chiffre entre 1 et 25
+			if (!isalpha(key) && key >= 1 && key <= 25) {
+				cin.clear();
+				system("cls");
+				cout << "Clé saisie avec succès." << endl;
+
+				crypto.Dechiffrer(key); // lance la fonction dechiffrer
+				essais++;
+			}
+			else {
+				cin.clear();
+				system("cls");
+				key = 0;
+				cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
+				cout << "Veuillez recommencer." << endl;
+				getchar();
+			}
+
+		} while (essais < essaisMax || key == 0);
+
+		cout << "Nombre d'essais max atteint. Le message va être détruit." << endl;
+		EffacerMessage("message.txt"); // effacer le message
+		break;
+
+	case 'Q':
+	case 'q': // Quitter le programme
+		cout << "Fermeture du programme.\n" << endl;
+		return true; // va stopper la boucle dans main()
+		break;
+	default: // si l'utilisateur se 'trompe' dans la saisie
+		cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;
+		getchar();
+		Sleep(1000);
+		return false;
+	}
+	getchar();
+	return true;
+
+
+
 }
