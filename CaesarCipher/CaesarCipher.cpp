@@ -9,7 +9,8 @@ using namespace std;
 int main()
 {
     // modifier la locale pour pouvoir afficher les caractères spéciaux (caractères français)
-    std::locale::global(locale(""));
+    SetConsoleOutputCP(CP_UTF8);
+    locale::global(locale("fr_FR.UTF-8"));;
     Crypto crypto;
 
     /* Permet de rester dans le programme jusqu'à ce que l'on décide de le quitter */
