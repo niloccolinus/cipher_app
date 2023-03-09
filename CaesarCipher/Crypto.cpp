@@ -1,10 +1,9 @@
 #include <iostream>
 #include <string>
 #include "Crypto.h"
-#include <windows.h>
 
 Crypto::Crypto() {
-	c = 'a'; 
+	c = 'a';
 }
 
 string Crypto::LireMessage(string fileName) {
@@ -106,38 +105,38 @@ void Crypto::Dechiffrer(int key) {
 	else {
 
 
-	for (int i = 0; i < message.length(); i++)
-	{
-
-		if (isalpha(message[i]))
+		for (int i = 0; i < message.length(); i++)
 		{
-			c = message[i];
 
-			if (isupper(c)) {
-				// algorithme semblable à celui de Chiffrer mais on enlève key au lieu de l'ajouter
-				int index = ((c - 'A') - key) % 26;
-				if (index < 0) index += 26; // ajustement pour les index négatifs
-				c = index + 'A';
-			}
-			else {
-				int index = ((c - 'a') - key) % 26;
-				if (index < 0) index += 26;
-				c = index + 'a';
-			}
+			if (isalpha(message[i]))
+			{
+				c = message[i];
 
-			decodedMsg += c;
+				if (isupper(c)) {
+					// algorithme semblable à celui de Chiffrer mais on enlève key au lieu de l'ajouter
+					int index = ((c - 'A') - key) % 26;
+					if (index < 0) index += 26; // ajustement pour les index négatifs
+					c = index + 'A';
+				}
+				else {
+					int index = ((c - 'a') - key) % 26;
+					if (index < 0) index += 26;
+					c = index + 'a';
+				}
+
+				decodedMsg += c;
+			}
+			else
+			{
+				decodedMsg += message[i];
+			}
 		}
-		else
-		{
-			decodedMsg += message[i];
-		}
+
+		cout << "Le message a été déchiffré avec succès." << endl;
+		cout << "Voici le message déchiffré :\n" << endl;
+		// imprimer le message décodé
+		cout << decodedMsg << endl;
 	}
-
-	cout << "Le message a été déchiffré avec succès." << endl;
-	cout << "Voici le message déchiffré :" << endl;
-	// imprimer le message décodé
-	cout << decodedMsg << endl;
-}
 
 }
 
@@ -167,7 +166,6 @@ bool Crypto::Init() {
 		system("cls");
 		cout << "Vous avez choisi de chiffrer un message." << endl;
 		cout << "Choisissez une clé entre 1 et 25 qui permettra de chiffrer et déchiffrer le message." << endl;
-		getchar();
 
 		/* Début saisie clé */
 		// L'utilisateur saisit la clé qui va permettre de chiffrer le message.
@@ -181,22 +179,22 @@ bool Crypto::Init() {
 				cin.clear();
 				system("cls");
 				cout << "Clé saisie avec succès. Ne l'oubliez pas." << endl;
-				getchar();
+
 			}
 			else {
 				cin.clear();
 				system("cls");
-				key = 0;
 				cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
 				cout << "Veuillez recommencer." << endl;
-				getchar();
+				key = 0;
+				cin.ignore();
 			}
 		} while (key == 0);
 
 		/* Fin saisie clé */
 
 		crypto.Chiffrer(key); // lance la fonction chiffrer
-		getchar();
+		system("pause");
 		return false;
 		break;
 
@@ -204,7 +202,6 @@ bool Crypto::Init() {
 
 		system("cls");
 		cout << "Vous avez choisi de déchiffrer un message." << endl;
-		getchar();
 
 		/* Saisir clé */
 
@@ -224,10 +221,10 @@ bool Crypto::Init() {
 			else {
 				cin.clear();
 				system("cls");
-				key = 0;
 				cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
 				cout << "Veuillez recommencer." << endl;
-				getchar();
+				key = 0;
+				cin.ignore();
 			}
 
 		} while (essais < essaisMax || key == 0);
@@ -243,13 +240,10 @@ bool Crypto::Init() {
 		break;
 	default: // si l'utilisateur se 'trompe' dans la saisie
 		cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;
-		getchar();
-		Sleep(1000);
+		cin.ignore();
 		return false;
 	}
-	getchar();
+
 	return true;
-
-
 
 }
