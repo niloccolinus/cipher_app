@@ -13,8 +13,10 @@ public:
 	void Chiffrer(int);
 	void Dechiffrer(int);
 	string LireMessage(string);
+	void EffacerMessage(string);
 	ofstream fichier_out;
 	ifstream fichier_in;
+	bool Init();
 };
 
 
