@@ -47,7 +47,7 @@ void Crypto::Chiffrer(int key) {
 
 	for (int i = 0; i < origine.length(); i++)
 	{
-		// vérifier si la lettre est une lettre alphabétique...
+		// vérifier si le caractère est une lettre alphabétique...
 		if (isalpha(origine[i]))
 		{
 			c = origine[i];
@@ -69,7 +69,7 @@ void Crypto::Chiffrer(int key) {
 			output += c;
 
 		}
-		// ...sinon ajouter la lettre telle quelle au message chiffré
+		// ...sinon ajouter le caractère tel quel au message chiffré
 		else
 		{
 			output += origine[i];
