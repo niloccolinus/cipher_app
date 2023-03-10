@@ -40,7 +40,7 @@ void Crypto::EffacerMessage(string fileName) {
 }
 
 void Crypto::Chiffrer(int key) {
-	string origine = LireMessage("orgine.txt");
+	string origine = LireMessage("origine.txt");
 	string output = "";
 
 	// vérifier que le message n'est pas vide
