@@ -2,8 +2,9 @@
 #include <string>
 #include "Crypto.h"
 
+// constructeur
 Crypto::Crypto() {
-	c = 'a';
+	
 }
 
 string Crypto::LireMessage(string fileName) {
@@ -12,6 +13,7 @@ string Crypto::LireMessage(string fileName) {
 
 	if (fichier_in.fail()) {
 		cout << "Erreur a l'ouverture du fichier..." << endl;
+		cout << "Veuillez vérifier que le fichier existe et qu'il est placé à la racine du projet." << endl;
 	}
 	else {
 		string line;
@@ -29,6 +31,7 @@ void Crypto::EffacerMessage(string fileName) {
 	fichier_out.open(fileName);
 	if (fichier_out.fail()) {
 		cout << "Erreur a l'ouverture du fichier..." << endl;
+		cout << "Veuillez vérifier que le fichier existe et qu'il est placé à la racine du projet." << endl;
 	}
 	else {
 		fichier_out << output;
@@ -37,12 +40,13 @@ void Crypto::EffacerMessage(string fileName) {
 }
 
 void Crypto::Chiffrer(int key) {
-	string origine = LireMessage("origine.txt");
+	string origine = LireMessage("orgine.txt");
 	string output = "";
 
+	// vérifier que le message n'est pas vide
 	if (origine.length() == 0) {
 		cout << "Le message d'origine est vide !" << endl;
-		return;
+		return; // s'il est vide on sort de la fonction, le reste ne s'exécute pas
 	}
 
 	for (int i = 0; i < origine.length(); i++)
@@ -81,6 +85,7 @@ void Crypto::Chiffrer(int key) {
 		fichier_out.open("message.txt");
 		if (fichier_out.fail()) {
 			cout << "Erreur a l'ouverture du fichier..." << endl;
+			cout << "Veuillez vérifier que le fichier existe et qu'il est placé à la racine du projet." << endl;
 		}
 		else {
 			fichier_out << output;
@@ -146,7 +151,7 @@ bool Crypto::Init() {
 	char choix; // choix de l'utilisateur, soit chiffrer, soit déchiffrer, soit quitter
 	int key = 0; // clé rentrée par l'utilisateur
 	int essais = 0; // initialisation à 0 des essais effectués
-	int essaisMax = 1; // nombre d'essais maximum pour déchiffrer
+	int essaisMax = 1; // nombre d'essais maximum pour déchiffrer 
 
 	system("cls");
 	cout << "Faites votre choix : " << endl;
@@ -194,11 +199,11 @@ bool Crypto::Init() {
 		/* Fin saisie clé */
 
 		crypto.Chiffrer(key); // lance la fonction chiffrer
-		system("pause");
+		system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
 		return false;
 		break;
 
-	case 'd': // Dechiffrement
+	case 'd': // Déchiffrement
 
 		system("cls");
 		cout << "Vous avez choisi de déchiffrer un message." << endl;
@@ -230,7 +235,7 @@ bool Crypto::Init() {
 		} while (essais < essaisMax || key == 0);
 
 		cout << "Nombre d'essais max atteint. Le message va être détruit." << endl;
-		EffacerMessage("message.txt"); // effacer le message
+		EffacerMessage("message.txt"); // effacer le message pour ajouter une sécurité
 		break;
 
 	case 'Q':
@@ -238,7 +243,7 @@ bool Crypto::Init() {
 		cout << "Fermeture du programme.\n" << endl;
 		return true; // va stopper la boucle dans main()
 		break;
-	default: // si l'utilisateur se 'trompe' dans la saisie
+	default: // si l'utilisateur se trompe dans la saisie
 		cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;
 		cin.ignore();
 		return false;

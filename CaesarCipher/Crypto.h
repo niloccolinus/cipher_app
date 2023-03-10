@@ -14,9 +14,9 @@ public:
 	void Dechiffrer(int);
 	string LireMessage(string);
 	void EffacerMessage(string);
+	bool Init();
 	ofstream fichier_out;
 	ifstream fichier_in;
-	bool Init();
 };
 
 
