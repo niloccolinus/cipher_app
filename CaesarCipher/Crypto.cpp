@@ -4,7 +4,9 @@
 
 // constructeur
 Crypto::Crypto() {
-	
+	key = 0;
+	c = 'a';
+	x = 0;
 }
 
 string Crypto::LireMessage(string fileName) {
@@ -39,7 +41,7 @@ void Crypto::EffacerMessage(string fileName) {
 	fichier_out.close();
 }
 
-void Crypto::Chiffrer(int key) {
+void Crypto::ChiffrerCesar(int key) {
 	string origine = LireMessage("origine.txt");
 	string output = "";
 
@@ -99,8 +101,8 @@ void Crypto::Chiffrer(int key) {
 
 }
 
-void Crypto::Dechiffrer(int key) {
-	string message = LireMessage("message.txt");
+void Crypto::DechiffrerCesar(int key) {
+	string message = LireMessage("message-intercepte.txt");
 	string decodedMsg;
 
 	if (message.length() == 0) {
@@ -112,7 +114,6 @@ void Crypto::Dechiffrer(int key) {
 
 		for (int i = 0; i < message.length(); i++)
 		{
-
 			if (isalpha(message[i]))
 			{
 				c = message[i];
@@ -145,8 +146,45 @@ void Crypto::Dechiffrer(int key) {
 
 }
 
+
+int Crypto::AnalyserFrequence(string fileName) {
+	string message = LireMessage(fileName);
+
+	// définition d'un tableau de comptage de fréquence pour chaque lettre
+	int frequence[26] = { 0 }; // initialisation à 0
+
+	// parcours de chaque caractère du message
+	for (char c : message) {
+		// si le caractère est une lettre minuscule anglaise (code ascii)
+		if (c >= 'a' && c <= 'z') {
+			// incrémenter le compteur de fréquence correspondant
+			// on convertit la lettre c en un indice dans le tableau frequence en soustrayant l'entier 
+			// représentant la lettre 'a' (97) à l'entier représentant la lettre c. 
+			// par exemple, si c est la lettre 'd', alors c - 'a' donne 3, qui est l'indice de la lettre 'd' dans le tableau frequence.
+			frequence[c - 'a']++;
+		}
+	}
+
+	// recherche de l'indice du compteur de fréquence le plus élevé
+	int indiceMax = 0;
+	// on boucle sur le tableau de fréquences
+	// sizeof(frequence) / sizeof(int) permet de calculer la longueur du tableau en divisant 
+	// la taille totale du tableau par la taille d'un élément du tableau
+	for (int i = 0; i < sizeof(frequence) / sizeof(int); i++) {
+		if (frequence[i] > frequence[indiceMax]) {
+			indiceMax = i;
+		}
+	}
+
+	// trouver la lettre correspondante à l'indice_max et calculer le décalage par rapport 
+	// à la lettre 'e', lettre ayant le plus d'occurrences en anglais 
+	int decalage = (('a' + indiceMax) - 'e') % 26;
+
+	return decalage;
+}
+
+
 bool Crypto::Init() {
-	Crypto crypto;
 
 	char choix; // choix de l'utilisateur, soit chiffrer, soit déchiffrer, soit quitter
 	int key = 0; // clé rentrée par l'utilisateur
@@ -198,7 +236,7 @@ bool Crypto::Init() {
 
 		/* Fin saisie clé */
 
-		crypto.Chiffrer(key); // lance la fonction chiffrer
+		ChiffrerCesar(key); // lance la fonction chiffrer
 		system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
 		return false;
 		break;
@@ -220,7 +258,7 @@ bool Crypto::Init() {
 				system("cls");
 				cout << "Clé saisie avec succès." << endl;
 
-				crypto.Dechiffrer(key); // lance la fonction dechiffrer
+				DechiffrerCesar(key); // lance la fonction dechiffrer
 				essais++;
 			}
 			else {
