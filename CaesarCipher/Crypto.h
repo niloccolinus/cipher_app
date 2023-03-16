@@ -13,8 +13,8 @@ public:
 	Crypto();
 	void ChiffrerCesar(int);
 	void DechiffrerCesar(int);	
-	void ChiffrerVigenere(int);
-	void DechiffrerVigenere(int);
+	void ChiffrerVigenere(string);
+	void DechiffrerVigenere(string);
 	int AnalyserFrequence(string);
 	string LireMessage(string);
 	void EffacerMessage(string);

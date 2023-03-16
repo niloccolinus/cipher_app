@@ -110,8 +110,6 @@ void Crypto::DechiffrerCesar(int key) {
 		return;
 	}
 	else {
-
-
 		for (int i = 0; i < message.length(); i++)
 		{
 			if (isalpha(message[i]))
@@ -144,6 +142,121 @@ void Crypto::DechiffrerCesar(int key) {
 		cout << decodedMsg << endl;
 	}
 
+}
+
+
+void Crypto::ChiffrerVigenere(string key) {
+	string origine = LireMessage("origine.txt");
+	string output = "";
+	int keyIndex = 0;
+	int keyLength = key.length();
+
+	// vérifier que le message n'est pas vide
+	if (origine.length() == 0) {
+		cout << "Le message d'origine est vide !" << endl;
+		return;
+	}
+
+	for (int i = 0; i < origine.length(); i++) {
+		if (isalpha(origine[i])) {
+			char c = (origine[i]);
+
+			// calculer le décalage correspondant pour chaque lettre de la clé
+			int shift;
+			if (isupper(c)) {
+				shift = key[keyIndex] - 'A'; // majuscules
+			}
+			else {
+				shift = key[keyIndex] - 'a'; // minuscules
+			}
+
+			// même chose que le chiffrement de Cesar
+			c = ((c - 'a') + shift) % 26 + 'a';
+			// on remet les majuscules
+			if (isupper(origine[i])) {
+				c = toupper(c);
+			}
+
+			output += c;
+
+			keyIndex = (keyIndex + 1) % keyLength;
+		}
+		// ...sinon ajouter le caractère tel quel au message chiffré
+		else {
+			output += origine[i];
+		}
+	}
+
+
+	// enregistrer dans le fichier message.txt
+	if (output.length() != 0) {
+		fichier_out.open("message.txt");
+		if (fichier_out.fail()) {
+			cout << "Erreur a l'ouverture du fichier..." << endl;
+		}
+		else {
+			fichier_out << output;
+			// succès
+			cout << "Le message a été chiffré avec succès." << endl;
+			cout << "Vous trouverez le message dans le fichier 'message.txt'." << endl;
+		}
+		fichier_out.close();
+	}
+}
+
+
+void Crypto::DechiffrerVigenere(string key) {
+	string message = LireMessage("message.txt");
+	string decodedMsg = "";
+	int keyIndex = 0;
+	int keyLength = key.length();
+
+	if (message.length() == 0) {
+		cout << "Le message à déchiffrer est vide !" << endl;
+		return;
+	}
+	else {
+		for (int i = 0; i < message.length(); i++) {
+			if (isalpha(message[i])) {
+				char c = (message[i]);
+
+				// calculer le décalage correspondant pour chaque lettre de la clé
+				int shift;
+				if (isupper(c)) {
+					shift = toupper(key[keyIndex]) - 'A'; // majuscules
+					// même chose que le chiffrement de Cesar
+					int index = ((c - 'A') - shift) % 26;
+					if (index < 0) index += 26;
+					c = index + 'A';
+				}
+				else {
+					shift = tolower(key[keyIndex]) - 'a'; // minuscules
+					int index = ((c - 'a') - shift) % 26;
+					if (index < 0) index += 26;
+					c = index + 'a';
+				}
+	
+
+				// on remet les majuscules
+				if (isupper(message[i])) {
+					c = toupper(c);
+				}
+
+				decodedMsg += c;
+
+				keyIndex = (keyIndex + 1) % keyLength;
+			}
+			// ...sinon ajouter le caractère tel quel au message chiffré
+			else {
+				decodedMsg += message[i];
+			}
+		}
+
+		cout << "Le message a été déchiffré avec succès." << endl;
+		cout << "Voici le message déchiffré :\n" << endl;
+		// imprimer le message décodé
+		cout << decodedMsg << endl;
+	}
 }
 
 

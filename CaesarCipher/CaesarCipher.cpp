@@ -20,7 +20,8 @@ int main()
     //    isRunning = crypto.Init(); 
     //} while (!isRunning); // tant que isRunning n'est pas 'vrai', on reste dans le programme
 
-    int key = crypto.AnalyserFrequence("message-intercepte.txt");
-    crypto.DechiffrerCesar(key);
+    //crypto.key = crypto.AnalyserFrequence("message-intercepte.txt");
 
+    crypto.ChiffrerVigenere("pouet");
+    crypto.DechiffrerVigenere("pouet");
 }
