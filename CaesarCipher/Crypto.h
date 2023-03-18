@@ -7,7 +7,6 @@ using namespace std;
 class Crypto
 {
 	char c;
-	int x;
 
 public:
 	Crypto();
@@ -15,13 +14,12 @@ public:
 	void DechiffrerCesar(int);	
 	void ChiffrerVigenere(string);
 	void DechiffrerVigenere(string);
-	int AnalyserFrequence(string);
+	void AnalyserFrequence();
 	string LireMessage(string);
 	void EffacerMessage(string);
-	bool Init();
 	ofstream fichier_out;
 	ifstream fichier_in;
-	int key;
+	string fileName;
 };
 
 

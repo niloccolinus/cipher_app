@@ -4,9 +4,8 @@
 
 // constructeur
 Crypto::Crypto() {
-	key = 0;
 	c = 'a';
-	x = 0;
+	fileName = "";
 }
 
 string Crypto::LireMessage(string fileName) {
@@ -42,7 +41,7 @@ void Crypto::EffacerMessage(string fileName) {
 }
 
 void Crypto::ChiffrerCesar(int key) {
-	string origine = LireMessage("origine.txt");
+	string origine = LireMessage(fileName);
 	string output = "";
 
 	// vérifier que le message n'est pas vide
@@ -102,7 +101,7 @@ void Crypto::ChiffrerCesar(int key) {
 }
 
 void Crypto::DechiffrerCesar(int key) {
-	string message = LireMessage("message-intercepte.txt");
+	string message = LireMessage(fileName);
 	string decodedMsg;
 
 	if (message.length() == 0) {
@@ -146,7 +145,7 @@ void Crypto::DechiffrerCesar(int key) {
 
 
 void Crypto::ChiffrerVigenere(string key) {
-	string origine = LireMessage("origine.txt");
+	string origine = LireMessage(fileName);
 	string output = "";
 	int keyIndex = 0;
 	int keyLength = key.length();
@@ -206,7 +205,7 @@ void Crypto::ChiffrerVigenere(string key) {
 
 
 void Crypto::DechiffrerVigenere(string key) {
-	string message = LireMessage("message.txt");
+	string message = LireMessage(fileName);
 	string decodedMsg = "";
 	int keyIndex = 0;
 	int keyLength = key.length();
@@ -235,7 +234,7 @@ void Crypto::DechiffrerVigenere(string key) {
 					if (index < 0) index += 26;
 					c = index + 'a';
 				}
-	
+
 
 				// on remet les majuscules
 				if (isupper(message[i])) {
@@ -260,7 +259,7 @@ void Crypto::DechiffrerVigenere(string key) {
 }
 
 
-int Crypto::AnalyserFrequence(string fileName) {
+void Crypto::AnalyserFrequence() {
 	string message = LireMessage(fileName);
 
 	// définition d'un tableau de comptage de fréquence pour chaque lettre
@@ -293,113 +292,7 @@ int Crypto::AnalyserFrequence(string fileName) {
 	// à la lettre 'e', lettre ayant le plus d'occurrences en anglais 
 	int decalage = (('a' + indiceMax) - 'e') % 26;
 
-	return decalage;
-}
-
-
-bool Crypto::Init() {
-
-	char choix; // choix de l'utilisateur, soit chiffrer, soit déchiffrer, soit quitter
-	int key = 0; // clé rentrée par l'utilisateur
-	int essais = 0; // initialisation à 0 des essais effectués
-	int essaisMax = 1; // nombre d'essais maximum pour déchiffrer 
-
 	system("cls");
-	cout << "Faites votre choix : " << endl;
-	cout << "Pour chiffrer un message : tapez (c) " << endl;
-	cout << "Pour déchiffrer un message : tapez (d) " << endl;
-	cout << "Pour quitter le programme : tapez (q ou Q) " << endl;
-	cout << "Saisissez votre choix : ";
-
-	cin >> choix;
-	cin.clear();
-
-
-	switch (choix)
-	{
-	case 'c': // Chiffrement
-
-		system("cls");
-		cout << "Vous avez choisi de chiffrer un message." << endl;
-		cout << "Choisissez une clé entre 1 et 25 qui permettra de chiffrer et déchiffrer le message." << endl;
-
-		/* Début saisie clé */
-		// L'utilisateur saisit la clé qui va permettre de chiffrer le message.
-
-		do {
-			cout << "Saisissez la clé :" << endl;
-			cin >> key;
-
-			// vérifier que la clé est un chiffre entre 1 et 25
-			if (!isalpha(key) && key >= 1 && key <= 25) {
-				cin.clear();
-				system("cls");
-				cout << "Clé saisie avec succès. Ne l'oubliez pas." << endl;
-
-			}
-			else {
-				cin.clear();
-				system("cls");
-				cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
-				cout << "Veuillez recommencer." << endl;
-				key = 0;
-				cin.ignore();
-			}
-		} while (key == 0);
-
-		/* Fin saisie clé */
-
-		ChiffrerCesar(key); // lance la fonction chiffrer
-		system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
-		return false;
-		break;
-
-	case 'd': // Déchiffrement
-
-		system("cls");
-		cout << "Vous avez choisi de déchiffrer un message." << endl;
-
-		/* Saisir clé */
-
-		do {
-			cout << "Veuillez saisir la clé secrète :" << endl;
-			cin >> key;
-
-			// vérifier que la clé est un chiffre entre 1 et 25
-			if (!isalpha(key) && key >= 1 && key <= 25) {
-				cin.clear();
-				system("cls");
-				cout << "Clé saisie avec succès." << endl;
-
-				DechiffrerCesar(key); // lance la fonction dechiffrer
-				essais++;
-			}
-			else {
-				cin.clear();
-				system("cls");
-				cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
-				cout << "Veuillez recommencer." << endl;
-				key = 0;
-				cin.ignore();
-			}
-
-		} while (essais < essaisMax || key == 0);
-
-		cout << "Nombre d'essais max atteint. Le message va être détruit." << endl;
-		EffacerMessage("message.txt"); // effacer le message pour ajouter une sécurité
-		break;
-
-	case 'Q':
-	case 'q': // Quitter le programme
-		cout << "Fermeture du programme.\n" << endl;
-		return true; // va stopper la boucle dans main()
-		break;
-	default: // si l'utilisateur se trompe dans la saisie
-		cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;
-		cin.ignore();
-		return false;
-	}
-
-	return true;
-
+	cout << "Il semblerait que le décalage soit de " << decalage << "." << endl;
 }
+
