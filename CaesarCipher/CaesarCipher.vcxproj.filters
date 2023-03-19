@@ -28,8 +28,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="origine.txt" />
-    <Text Include="message.txt" />
     <Text Include="message-intercepte.txt" />
   </ItemGroup>
 </Project>

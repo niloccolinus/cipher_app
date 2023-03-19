@@ -80,9 +80,10 @@ int main()
 					}
 				} while (key == 0);
 
-				cout << "Veuillez entrer le nom du fichier à chiffrer : ";
-				cin >> crypto.fileName;
-
+				cout << "Veuillez entrer le nom du fichier à chiffrer (avec l'extension .txt) : ";
+				cin >> crypto.fileInput;
+				cout << "Veuillez donner un nom au fichier de sortie (avec l'extension .txt) : ";
+				cin >> crypto.fileOutput;
 
 				crypto.ChiffrerCesar(key);
 				system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
@@ -112,8 +113,10 @@ int main()
 					}
 				} while (vigKey == "");
 
-				cout << "Veuillez entrer le nom du fichier à chiffrer : ";
-				cin >> crypto.fileName;
+				cout << "Veuillez entrer le nom du fichier à chiffrer (avec l'extension .txt) : ";
+				cin >> crypto.fileInput;
+				cout << "Veuillez donner un nom au fichier de sortie (avec l'extension .txt) : ";
+				cin >> crypto.fileOutput;
 
 				crypto.ChiffrerVigenere(vigKey);
 				system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
@@ -147,8 +150,10 @@ int main()
 						cin.clear();
 						system("cls");
 						cout << "Clé saisie avec succès." << endl;
-						cout << "Veuillez entrer le nom du fichier à déchiffrer : ";
-						cin >> crypto.fileName;
+						cout << "Veuillez entrer le nom du fichier à déchiffrer (avec l'extension .txt) : ";
+						cin >> crypto.fileInput;
+						cout << "Veuillez donner un nom au fichier de sortie (avec l'extension .txt) : ";
+						cin >> crypto.fileOutput;
 
 						crypto.DechiffrerCesar(key);
 						essais++;
@@ -165,7 +170,8 @@ int main()
 				} while (essais < essaisMax || key == 0);
 
 				cout << "Nombre d'essais max atteint. Le message va être détruit." << endl;
-				crypto.EffacerMessage(crypto.fileName); // effacer le message pour ajouter une sécurité
+				crypto.EffacerMessage(crypto.fileInput); // effacer le message pour ajouter une sécurité
+				system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
 				break;
 
 
@@ -180,8 +186,10 @@ int main()
 						system("cls");
 						cout << "Clé saisie avec succès." << endl;
 
-						cout << "Veuillez entrer le nom du fichier à déchiffrer : ";
-						cin >> crypto.fileName;
+						cout << "Veuillez entrer le nom du fichier à déchiffrer (avec l'extension .txt) : ";
+						cin >> crypto.fileInput;
+						cout << "Veuillez donner un nom au fichier de sortie (avec l'extension .txt) : ";
+						cin >> crypto.fileOutput;
 
 						crypto.DechiffrerVigenere(vigKey);
 						essais++;
@@ -198,7 +206,8 @@ int main()
 				} while (essais < essaisMax || vigKey == "");
 
 				cout << "Nombre d'essais max atteint. Le message va être détruit." << endl;
-				crypto.EffacerMessage(crypto.fileName);
+				crypto.EffacerMessage(crypto.fileInput);
+				system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
 				break;
 
 
@@ -207,14 +216,15 @@ int main()
 				cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;
 				cin.ignore();
 			}
+			break;
 
 		case 'a': // Analyse fréquentielle
 			system("cls");
-			cout << "Veuillez entrer le nom du fichier à déchiffrer : ";
-			cin >> crypto.fileName;
+			cout << "Veuillez entrer le nom du fichier à analyser : ";
+			cin >> crypto.fileInput;
 
 			crypto.AnalyserFrequence();
-
+			break;
 
 		case 'Q':
 		case 'q': // Quitter le programme

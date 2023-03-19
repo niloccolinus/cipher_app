@@ -17,9 +17,11 @@ public:
 	void AnalyserFrequence();
 	string LireMessage(string);
 	void EffacerMessage(string);
+	void EnregistrerMessage(string, string);
 	ofstream fichier_out;
 	ifstream fichier_in;
-	string fileName;
+	string fileInput;
+	string fileOutput;
 };
 
 

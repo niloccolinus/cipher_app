@@ -5,12 +5,13 @@
 // constructeur
 Crypto::Crypto() {
 	c = 'a';
-	fileName = "";
+	fileInput = "";
+	fileOutput = "";
 }
 
-string Crypto::LireMessage(string fileName) {
+string Crypto::LireMessage(string fileInput) {
 	string message = "";
-	fichier_in.open(fileName);
+	fichier_in.open(fileInput);
 
 	if (fichier_in.fail()) {
 		cout << "Erreur a l'ouverture du fichier..." << endl;
@@ -27,9 +28,9 @@ string Crypto::LireMessage(string fileName) {
 	return message;
 }
 
-void Crypto::EffacerMessage(string fileName) {
+void Crypto::EffacerMessage(string fileInput) {
 	string output = "";
-	fichier_out.open(fileName);
+	fichier_out.open(fileInput);
 	if (fichier_out.fail()) {
 		cout << "Erreur a l'ouverture du fichier..." << endl;
 		cout << "Veuillez vérifier que le fichier existe et qu'il est placé à la racine du projet." << endl;
@@ -40,8 +41,30 @@ void Crypto::EffacerMessage(string fileName) {
 	fichier_out.close();
 }
 
+
+void Crypto::EnregistrerMessage(string message, string fileOutput) {
+	if (message.length() != 0) {
+		fichier_out.open(fileOutput);
+		if (fichier_out.fail()) {
+			cout << "Erreur a l'ouverture du fichier..." << endl;
+			cout << "Veuillez vérifier que le fichier existe et qu'il est placé à la racine du projet." << endl;
+		}
+		else {
+			fichier_out << message;
+			// succès
+			cout << "Le message a été enregistré avec succès." << endl;
+			cout << "Vous le trouverez dans le fichier '" << fileOutput << "'." << endl;
+			cout << "Voici le message :\n" << endl;
+			// imprimer le message
+			cout << message << endl;
+		}
+		fichier_out.close();
+	}
+}
+
+
 void Crypto::ChiffrerCesar(int key) {
-	string origine = LireMessage(fileName);
+	string origine = LireMessage(fileInput);
 	string output = "";
 
 	// vérifier que le message n'est pas vide
@@ -81,27 +104,11 @@ void Crypto::ChiffrerCesar(int key) {
 		}
 	}
 
-	// enregistrer dans le fichier message.txt
-	if (output.length() != 0) {
-		fichier_out.open("message.txt");
-		if (fichier_out.fail()) {
-			cout << "Erreur a l'ouverture du fichier..." << endl;
-			cout << "Veuillez vérifier que le fichier existe et qu'il est placé à la racine du projet." << endl;
-		}
-		else {
-			fichier_out << output;
-			// succès
-			cout << "Le message a été chiffré avec succès." << endl;
-			cout << "Vous trouverez le message dans le fichier 'message.txt'." << endl;
-		}
-		fichier_out.close();
-	}
-
-
+	EnregistrerMessage(output, fileOutput);
 }
 
 void Crypto::DechiffrerCesar(int key) {
-	string message = LireMessage(fileName);
+	string message = LireMessage(fileInput);
 	string decodedMsg;
 
 	if (message.length() == 0) {
@@ -135,17 +142,14 @@ void Crypto::DechiffrerCesar(int key) {
 			}
 		}
 
-		cout << "Le message a été déchiffré avec succès." << endl;
-		cout << "Voici le message déchiffré :\n" << endl;
-		// imprimer le message décodé
-		cout << decodedMsg << endl;
+		EnregistrerMessage(decodedMsg, fileOutput);
 	}
 
 }
 
 
 void Crypto::ChiffrerVigenere(string key) {
-	string origine = LireMessage(fileName);
+	string origine = LireMessage(fileInput);
 	string output = "";
 	int keyIndex = 0;
 	int keyLength = key.length();
@@ -186,26 +190,12 @@ void Crypto::ChiffrerVigenere(string key) {
 		}
 	}
 
-
-	// enregistrer dans le fichier message.txt
-	if (output.length() != 0) {
-		fichier_out.open("message.txt");
-		if (fichier_out.fail()) {
-			cout << "Erreur a l'ouverture du fichier..." << endl;
-		}
-		else {
-			fichier_out << output;
-			// succès
-			cout << "Le message a été chiffré avec succès." << endl;
-			cout << "Vous trouverez le message dans le fichier 'message.txt'." << endl;
-		}
-		fichier_out.close();
-	}
+	EnregistrerMessage(output, fileOutput);
 }
 
 
 void Crypto::DechiffrerVigenere(string key) {
-	string message = LireMessage(fileName);
+	string message = LireMessage(fileInput);
 	string decodedMsg = "";
 	int keyIndex = 0;
 	int keyLength = key.length();
@@ -251,16 +241,13 @@ void Crypto::DechiffrerVigenere(string key) {
 			}
 		}
 
-		cout << "Le message a été déchiffré avec succès." << endl;
-		cout << "Voici le message déchiffré :\n" << endl;
-		// imprimer le message décodé
-		cout << decodedMsg << endl;
+		EnregistrerMessage(decodedMsg, fileOutput);
 	}
 }
 
 
 void Crypto::AnalyserFrequence() {
-	string message = LireMessage(fileName);
+	string message = LireMessage(fileInput);
 
 	// définition d'un tableau de comptage de fréquence pour chaque lettre
 	int frequence[26] = { 0 }; // initialisation à 0

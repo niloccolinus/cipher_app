@@ -135,8 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="message-intercepte.txt" />
-    <Text Include="message.txt" />
-    <Text Include="origine.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
