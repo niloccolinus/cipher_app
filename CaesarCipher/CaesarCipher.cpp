@@ -215,6 +215,9 @@ int main()
 				system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
 				break;
 
+			case 'r': // retour en arrière
+				break;
+
 			default:
 				cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;
 				cin.ignore();
