@@ -1,3 +1,3 @@
-# Caesar Cipher
+# Cipher
 
-a caesar cipher algorithm for a school assignment 
+A simple console app with Caesar and Vigenère cipher algorithms, for a school assignment.
