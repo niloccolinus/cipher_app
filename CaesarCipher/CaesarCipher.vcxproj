@@ -134,8 +134,7 @@
     <ClInclude Include="Crypto.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="message.txt" />
-    <Text Include="origine.txt" />
+    <Text Include="message-intercepte.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
