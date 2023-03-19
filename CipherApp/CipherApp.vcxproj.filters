@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cipher.cpp">
+    <ClCompile Include="CipherApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Crypto.cpp">
@@ -29,5 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="message-intercepte.txt" />
+    <Text Include="message-retour.txt" />
+    <Text Include="message-source.txt" />
   </ItemGroup>
 </Project>

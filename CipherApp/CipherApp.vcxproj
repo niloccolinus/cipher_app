@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dc4d954b-250c-49a3-9e93-a5f4d0ef5ff9}</ProjectGuid>
-    <RootNamespace>CaesarCipher</RootNamespace>
+    <ProjectGuid>{aa6d31d6-3948-4673-85a6-8e422814e019}</ProjectGuid>
+    <RootNamespace>CipherApp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>CipherApp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cipher.cpp" />
+    <ClCompile Include="CipherApp.cpp" />
     <ClCompile Include="Crypto.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +135,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="message-intercepte.txt" />
+    <Text Include="message-retour.txt" />
+    <Text Include="message-source.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
