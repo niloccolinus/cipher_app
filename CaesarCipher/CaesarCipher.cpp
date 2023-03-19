@@ -54,6 +54,7 @@ int main()
 			cin >> method;
 			cin.clear();
 
+			if (action)
 			switch (method)
 			{
 			case 'c': // César
@@ -75,8 +76,9 @@ int main()
 						system("cls");
 						cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
 						cout << "Veuillez recommencer." << endl;
-						key = 0;
+						system("pause");
 						cin.ignore();
+						key = 0;
 					}
 				} while (key == 0);
 
@@ -108,8 +110,9 @@ int main()
 						system("cls");
 						cout << "La clé saisie n'est pas une chaîne de caractère valide." << endl;
 						cout << "Veuillez entrer uniquement des lettres de l'alphabet en minuscules." << endl;
-						vigKey = "";
+						system("pause");
 						cin.ignore();
+						vigKey = "";
 					}
 				} while (vigKey == "");
 
@@ -163,8 +166,9 @@ int main()
 						system("cls");
 						cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
 						cout << "Veuillez recommencer." << endl;
-						key = 0;
+						system("pause");
 						cin.ignore();
+						key = 0;
 					}
 
 				} while (essais < essaisMax || key == 0);
@@ -199,8 +203,9 @@ int main()
 						system("cls");
 						cout << "La clé saisie n'est pas un chiffre entre 1 et 25." << endl;
 						cout << "Veuillez recommencer." << endl;
-						vigKey = "";
+						system("pause");
 						cin.ignore();
+						vigKey = "";
 					}
 
 				} while (essais < essaisMax || vigKey == "");
@@ -209,8 +214,6 @@ int main()
 				crypto.EffacerMessage(crypto.fileInput);
 				system("pause"); // attendre que l'utilisateur apppuie sur une touche pour passer à la suite
 				break;
-
-
 
 			default:
 				cout << "Erreur de saisie. Veuillez recommencer. \n" << endl;

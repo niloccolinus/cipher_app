@@ -52,6 +52,7 @@ void Crypto::EnregistrerMessage(string message, string fileOutput) {
 		else {
 			fichier_out << message;
 			// succès
+			system("cls");
 			cout << "Le message a été enregistré avec succès." << endl;
 			cout << "Vous le trouverez dans le fichier '" << fileOutput << "'." << endl;
 			cout << "Voici le message :\n" << endl;
