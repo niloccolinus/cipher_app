@@ -24,7 +24,7 @@
     <ProjectGuid>{dc4d954b-250c-49a3-9e93-a5f4d0ef5ff9}</ProjectGuid>
     <RootNamespace>CaesarCipher</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Cipher</ProjectName>
+    <ProjectName>CipherApp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
